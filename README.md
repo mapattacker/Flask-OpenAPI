@@ -73,7 +73,9 @@ class ResponseSchema(BaseModel):
     normalizedVertices: List[_normalizedVertices]
 ```
 
-![](https://github.com/mapattacker/Flask-OpenAPI/blob/master/apidocs.png?raw=true)
+<p align="center">
+    <img src="https://github.com/mapattacker/Flask-OpenAPI/blob/master/apidocs.png?raw=true" width=50% />
+</p>
 
 
 ## Validation
