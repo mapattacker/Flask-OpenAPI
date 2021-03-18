@@ -2,18 +2,17 @@
 
 Example of flask request-response validation with [pydantic](https://pydantic-docs.helpmanual.io), and generation of openapi docs using [flask-pydantic-spec](https://github.com/turner-townsend/flask-pydantic-spec).
 
-## Pydantic
+
+ * [Pydantic](#Pydantic): How to define a schema
+ * [Validation Error](#ValidationError): validation error message
+ * [OpenAPI](#OpenAPI): View OpenAPI documentation
+
+
+## <a name="Pydantic" href="#Pydantic">Pydantic</a>
 
 ### Schema Definition
 
 To do a schema, we import in the `BaseModel`, and type in the field name, followed by their data type. Using the example below.
-
-| code | desc |
-|-|-|
-| `score_th: float` |  field of float is required |
-| `min_height: float = 20` |  field of float is optional, if not present, will use default 20 |
-| `min_width: float = Field(..., example=0.3, description="Score")` | `...` means required field, example and description will populate the API docs |
-| `maxResults: int = Field(None, example=20, description="Maximum detection result to return")` | `None` means optional, if not present, will take 20 as default. |
 
 ```python
 from pydantic import BaseModel, Field
@@ -24,6 +23,13 @@ class RequestSchema(BaseModel):
     min_width: float = Field(..., example=0.3, description="Score")
     score_th: float
 ```
+
+| code | desc |
+|-|-|
+| `score_th: float` |  field of float is required |
+| `min_height: float = 20` |  field of float is optional, if not present, will use default 20 |
+| `min_width: float = Field(..., example=0.3, description="Score")` | `...` means required field, example and description will populate the API docs |
+| `maxResults: int = Field(None, example=20, description="Maximum detection result to return")` | `None` means optional, if not present, will take 20 as default. |
 
 ### Contraints
 
@@ -78,9 +84,9 @@ class ResponseSchema(BaseModel):
 </p>
 
 
-## Validation
+## <a name="Validation Error" href="#ValidationError">Validation Error</a>
 
-If there is a validation error, it will return a specific error message in json.
+If there is a 404 validation error, it will return a specific error message in json.
 
 ```python
 [
@@ -97,6 +103,8 @@ If there is a validation error, it will return a specific error message in json.
 ]
 ```
 
-## OpenAPI Docs
+## <a name="OpenAPI" href="#OpenAPI">OpenAPI Docs</a>
 
 Both Swagger-UI & Redocs style documentations will be created automatically, accessible at the endpoints `/apidoc/swagger` and `/apidoc/redoc` respectively.
+
+For an example of Flask with just the validation schemas and no API docs, use the branch **flask-pydantic-spec-nodocs**.
