@@ -1,0 +1,121 @@
+openapi: 3.0.3
+info:
+  title: Object Detection
+  description: API description
+  version: 1.0.0
+
+paths:
+  "/predict":
+    post:
+      operationId: server_http.predict
+      summary: Short description
+      description: Long description of endpoint
+      parameters: []
+      requestBody:
+        description: request description
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RequestSchema"
+      responses:
+        '200':
+          description: response description
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ResponseSchema"
+        '422':
+          description: Validation Error
+      tags:
+      - API Name
+
+components:
+  schemas:
+    RequestSchema:
+      properties:
+        image:
+          description: base64-encoded-image
+          title: Image
+          type: string
+        maxResults:
+          description: Maximum detection result to return
+          example: 20
+          title: Maxresults
+          type: integer
+        min_height:
+          description: Score
+          example: 0.3
+          title: Min Height
+          type: number
+        min_width:
+          description: Score
+          example: 0.3
+          title: Min Width
+          type: number
+        nms_iou:
+          description: Non-max suppression, intersection over union
+          example: 0.4
+          title: Nms Iou
+          type: number
+        score_th:
+          description: Score
+          example: 0.3
+          title: Score Th
+          type: number
+        type:
+          description: name of object to detect
+          example: safetycone
+          title: Type
+          type: string
+      required:
+      - nms_iou
+      - type
+      - image
+      title: RequestSchema
+      type: object
+    ResponseSchema:
+      properties:
+        normalizedVertices:
+          items:
+            "$ref": "#/components/schemas/_normalizedVertices"
+          title: Normalizedvertices
+          type: array
+      required:
+      - normalizedVertices
+      title: ResponseSchema
+      type: object
+    _normalizedVertices:
+      properties:
+        height:
+          description: height in pixel
+          example: 600
+          title: Height
+          type: integer
+        score:
+          description: confidence score
+          example: 0.79
+          title: Score
+          type: number
+        width:
+          description: width in pixel
+          example: 500
+          title: Width
+          type: integer
+        x:
+          description: X-coordinate
+          example: 5.12
+          title: X
+          type: number
+        y:
+          description: Y-coordinate
+          example: 20.56
+          title: Y
+          type: number
+      required:
+      - x
+      - y
+      - width
+      - height
+      - score
+      title: _normalizedVertices
+      type: object
